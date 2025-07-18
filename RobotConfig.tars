@@ -1,0 +1,49 @@
+
+/**
+**机器人配置信息
+* 
+**/
+module ai
+{
+    //服务类型
+    enum Eum_Service_Type
+    {
+        E_SERVICE_TYPE_MUTUAL     = 0,   //互相模拟
+        E_SERVICE_TYPE_INITIATIVE = 1,   //主动陪打
+        E_SERVICE_TYPE_PASSIVE    = 2,   //被动陪打
+    };
+
+    //机器人配置
+    struct TRobotConf
+    {
+        0  require int              iGameID;           //游戏ID
+        1  require string           sRoomID;           //RoomID--场次id
+        2  require int              iBatchID;          //批次
+        3  require int              iRobotCount;       //机器人数量
+        4  require Eum_Service_Type eServiceType;      //服务模式
+        5  require int              iEntryTime;        //进入时间
+        6  require int              iLeaveTime;        //离开时间
+        7  require long             iMinCoins;         //携带最小金币
+        8  require long             iMaxCoins;         //携带最大金币
+        9  require int              iEntryMinInterval; //进入最少间隔
+        10 require int              iEntryMaxInterval; //进入最大间隔
+        11 require int              iMinRound;         //最少陪玩局数
+        12 require int              iMaxRound;         //最大陪玩局数
+        13 require int              iMinPlayTime;      //最小出牌时间
+        14 require int              iMaxPlayTime;      //最大出牌时间
+        15 require int              iMinWinningRatio;  //最小获胜概率
+        16 require int              iMaxWinningRatio;  //最大获胜概率
+        17 require string           description;       //批次描述
+    };
+
+    //充值配置
+    struct TRobotRechargeConfig
+    {
+        0 require int iBatchID;     //批次
+        1 require int iCoinType;    //货币类型-0：房卡，1：钻石，2：金币
+        2 require long iMinCoins;   //携带最小金币
+        3 require long iMaxCoins;   //携带最大金币
+    };
+
+};
+

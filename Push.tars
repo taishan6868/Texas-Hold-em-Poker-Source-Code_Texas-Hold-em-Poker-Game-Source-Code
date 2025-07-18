@@ -1,0 +1,16 @@
+#include "/home/tarsproto/XGame/Comm/JFGameCommProto.tars"
+
+module ai
+{
+	interface Push
+	{
+		/*
+		* push消息
+		* @param uin
+		* @param tPack, 模拟router,用于roomsvr推送客户端消息
+		* @return = 0--ok, other--err
+		*/
+		int doPush(long uin, JFGamecomm::TPackage tPack);
+	};
+};
+

@@ -1,0 +1,155 @@
+#include "/home/tarsproto/XGame/Comm/JFGameCommProto.tars"
+
+/**
+**游戏AI服务协议文件
+* 
+**/
+module ai
+{
+	//错误码
+	enum Eum_Ret_Err
+	{
+		E_OK  = 0,  //正常
+		E_ERR = 1,  //错误
+	};
+
+    //取机器人请求
+	struct TGetRobotReq
+	{
+		0 require int count;  		//机器人数量
+		1 require string sRoomID;	//RoomID
+	};
+
+	//取机器人应答
+	struct TGetRobotRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+		1 require int iActuallyCount;  //实际数量
+		2 optional vector<long> vecUid;  //分配的账户id
+	};
+
+	//回收机器人请求
+	struct TRetrieveRobotReq
+	{
+		0 optional string sRoomID;
+	};
+	
+	//回收机器人应答
+	struct TRetrieveRobotRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+	};
+
+	//取机器人批次信息请求
+	//struct TGetRobotBatchInfoReq
+	//{
+	//};
+
+	//取机器人批次信息应答
+	struct TRobotBatchInfoItem
+	{
+		0 require int    iGameID;	   //游戏ID
+        	1 require string sRoomID;	   //RoomID--场次id
+        	2 require int    iBatchID;     //批次
+		3 require string description;  //批次描述
+	};
+
+	struct TGetRobotBatchInfoRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+		1 require vector<TRobotBatchInfoItem> vecRobotInfo;
+	};
+
+	//取机器人信息数量请求
+	struct TGetRobotInfoCountReq
+	{
+		0 require int iBatchID;     //批次
+	};
+
+	//取机器人信息数量应答
+	struct TGetRobotInfoCountRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+		1 require int count;    //机器人数量
+	};
+
+	//取机器人信息请求
+	struct TGetRobotInfoReq
+	{
+		0 require int iBatchID;     //批次
+		1 require int offset = 0;	//开始位置
+        	2 require int count  = 10;	//条数
+	};
+
+	//取机器人信息应答
+	struct TGetRobotInfoRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+		1 require vector<long> vecUid;  //机器人uid
+	};
+
+    //推送表情、短语、互动道具请求
+	struct TPushChatReq
+	{
+		0 require vector<long> vecUid;  //机器人uid
+		1 require vector<JFGamecomm::TMsgReqChat> vecChat;
+	};
+
+	//推送表情、短语、互动道具应答
+	struct TPushChatRsp
+	{
+		0 require int iResult;  //错误码，0--成功，其他--失败	
+	};
+
+	//AI大脑决策请求
+	struct TAIBrainDecideReq
+	{
+		0 require long        robotID;   //机器人标识   
+		1 require vector<int> handCards; //机器人手牌
+		2 optional vector<int> CommCards; //公共牌列表
+		3 require string      roomaddr;  //房间地址
+		4 optional string     sRoomID;   //房间标识
+		5 optional int        round;     ////0:preflop 1:flop 2:turn 3:river
+	};
+
+	//AI大脑决策应答
+	struct TAIBrainDecideRsp
+	{
+		0 require  long robotID;     //机器人标识 
+		1 require  int  actionType;  //操作类型
+		2 optional long betNum;      //下注筹码
+		3 optional string	  sRoomID;
+		4 optional string	  sErrMsg;
+		5 optional int 	actionNum;  
+	};
+
+	//AI消息转发请求
+	struct TAIMsgTransmitReq
+	{
+		0 require long    uid;      //机器人标识 
+		1 require int     type;     //消息类型
+		2 require string  msg;      //消息内容
+		3 require string  roomaddr; //房间地址
+	};
+
+	//AI消息转发应答
+	struct TAIMsgTransmitRsp
+	{
+		0 require  int  resultCode;  //操作类型 
+		1 require  long uid;         //机器人标识 
+		2 require  int  type;        //消息类型
+	};
+
+	//AI报告请求
+	struct TAIDataReportReq
+	{
+		0 require long uid;      //机器人标识 
+	};
+
+	//AI报告应答
+	struct TAIDataReportRsp
+	{
+		0 require int  resultCode;  //操作类型 
+		2 require string  msg;       //消息类型
+	};
+}; 

@@ -1,0 +1,39 @@
+#include "AIProto.tars"
+#include "/home/tarsproto/XGame/Comm/RoomSoProto.tars"
+#include "/home/tarsproto/XGame/Comm/JFGameCommProto.tars"
+
+/***
+* 游戏AI服务接口，用于撮桌玩家数量不够时自动补位
+*/
+module ai
+{
+    interface AIServant
+    {
+        //获取机器人
+        int getRobot(TGetRobotReq req, out TGetRobotRsp rsp);
+        //回收机器人
+        int RetrieveRobot(TRetrieveRobotReq req, out TRetrieveRobotRsp rsp);
+        //模拟router,用于roomsvr推送客户端消息
+        int doPush(long uin, JFGamecomm::TPackage tPack);
+        //推送pb协议数据给客户端
+        int doPushBufByRoomID(long uin, string buf);
+        //获取机器人批次信息
+        int getRobotBatchInfo(out TGetRobotBatchInfoRsp rsp);
+        //获取机器人信息数量
+        int getRobotInfoCount(TGetRobotInfoCountReq req, out TGetRobotInfoCountRsp rsp);
+        //获取机器人信息
+        int getRobotInfo(TGetRobotInfoReq req, out TGetRobotInfoRsp rsp);
+        //推送表情、短语、互动道具
+        int pushChat(TPushChatReq req, out TPushChatRsp rsp);
+        //获取机器人决策
+        int doRobotDecide(RoomSo::TRobotDecideReq req, out RoomSo::TRobotDecideRsp rsp);
+        //获取AI决策
+        int doAIDecide(ai::TAIBrainDecideReq req, out ai::TAIBrainDecideRsp rsp);
+        //消息转发ai平台
+        int doAIMsgForward(ai::TAIMsgTransmitReq req, out ai::TAIMsgTransmitRsp rsp);
+        //获取统计报告
+        int doAIDataReport(ai::TAIDataReportReq req, out ai::TAIDataReportRsp rsp);
+    };
+}; 
+
+
